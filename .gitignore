@@ -1,3 +1,7 @@
 .env
 __pycache__/
 .DS_Store
+LOOM_SCRIPT.md
+ONE_PAGER.md
+PITCH_DECK.md
+PRESENTER_GUIDE.md
