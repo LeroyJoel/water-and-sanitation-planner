@@ -1,0 +1,66 @@
+assess_water_needs_task:
+  description: >
+    Analyze the community details provided by the user (e.g., population size, location,
+    current water sources, % without toilets). Summarize the needs clearly.
+    Never leave placeholders. If data is missing, estimate based on Nigerian averages:
+     - Rural borehole coverage (40–60%).
+     - Average household size (5–6 people).
+     - Latrine coverage (~30–40% rural).
+    Use this user-provided context exactly as given: {topic}
+    Always explicitly mention the community name from the input.
+  expected_output: >
+    A concise needs baseline including:
+     - Community name (as provided by the user).
+     - Population size (exact or estimated).
+     - % with access to safe water.
+     - % with toilets/latrines.
+     - Major water/sanitation challenges.
+  agent: water_needs_assessor
+
+plan_sanitation_infra_task:
+  description: >
+     Based on the assessed needs, propose specific water & sanitation solutions.
+     Always include concrete numbers and costs in Nigerian Naira (₦). Never leave placeholders.
+     Assume:
+     - Borehole drilling: ₦3M–₦4M each.
+     - Community toilet: ₦400k–₦600k each.
+     - Household rainwater system: ₦15k–₦25k per home.
+     - Timeline: 6–24 months depending on scale.
+     Use this user-provided context exactly as given: {topic}
+     Ensure the community name from the input appears in this section.
+  expected_output: >
+    A detailed list of infrastructure proposals with:
+     - Exact number of boreholes, toilets, rainwater tanks.
+     - Estimated total cost in ₦.
+     - Implementation timeframe in months/years.
+  agent: sanitation_infra_planner
+
+analyze_health_impact_task:
+  description: >
+    Explain how the proposed water & sanitation plan will improve health outcomes.
+    Always quantify impacts (e.g., % reduction in diarrheal diseases, maternal/child health improvements).
+    Assume WHO/Nigeria CDC averages where data is missing.
+    Use this user-provided context exactly as given: {topic}
+    Explicitly refer to the community by name as provided in the input.
+  expected_output: >
+    A health impact analysis with focus on 
+    waterborne diseases, maternal/child health, 
+    and overall community wellbeing.
+  agent: health_impact_analyst
+
+aggregate_task:
+  description: >
+    Merge the outputs from the assessor, planner, and advocate into a single clean report.
+    Replace ALL placeholders with concrete values from inputs/estimates.
+    Ensure all costs are in ₦ (Naira), and all timelines are expressed in months or years.
+    The final report should be ready to present to a local council or NGO.
+    Use this user-provided context exactly as given: {topic}
+    The Executive Summary must begin with the community name as provided in the input.
+  expected_output: >
+    A professional report containing:
+     - Executive Summary with community name & population.
+     - Identified Needs (baseline data).
+     - Proposed Solutions (with infrastructure, costs, and timelines).
+     - Public Health Impact (disease reduction, education, productivity).
+     - Clear Action Plan with next steps.
+  agent: water_sanitation_aggregator
